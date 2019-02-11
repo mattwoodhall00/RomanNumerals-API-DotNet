@@ -1,0 +1,81 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<h2>Roman Numerals API Task</h2>
+<p>
+    This development task is based on the Roman Numeral code kata which may have already been completed during this recruitment process. This task requires you to build a JSON API and so any HTML, CSS or JavaScript that is submitted will not be reviewed.
+</p>
+<h3>Brief</h3>
+<p>
+    Our client (Numeral McNumberFace) requires a simple API which will convert an integer to its roman numeral counterpart. After our discussions with the client, we have discovered that the solution will contain 3 API endpoints, and will only support integers ranging from 1 to 3999. The client wishes to keep track of conversions so they can determine which is the most frequently converted integer, and the last time this was converted.
+</p>
+<h3>Endpoints Required</h3>
+<p>
+    <ol>
+        <li>Accepts an integer, converts it to a roman numeral, stores it and returns the response.</li>
+        <li>Lists all of the recently converted integers.</li>
+        <li>Lists the top 10 converted integers.</li>
+    </ol>
+</p>
+<h3>What we are looking for</h3>
+<p>
+    <ul>
+        <li>The supplied unit tests passing</li>
+        <li>Clean well structured code</li>
+        <li>Good project architecture</li>
+    </ul>
+</p>
+<h3>Submission Instructions</h3>
+<p>
+    Please create a [git bundle](https://git-scm.com/docs/git-bundle/) and send the file across:
+    <br />
+    <code>git bundle create <yourname>.bundle --all --branches</code>
+</p>
+
+<h3>
+    Testing
+</h3>
+<p>
+    The controls below may be used to test your endpoints. <br/>
+    Feel free to change anything, but be aware that this task is about building the api - any HTML, CSS or JavaScript that is submitted will not be reviewed.
+</p>
+<div class="container">
+    <div class="row">
+        <h3>Test Convert Endpoint</h3>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <input id="convertInput" type="number" />
+            <button id="convertButton">Convert</button>
+        </div>
+        <div class="col-md-9">
+            <span id="convertResult"></span>
+        </div>
+    </div>
+    <div class="row">
+        <h3>Test Recent conversions Endpoint</h3>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <button id="getPreviousButton">Get Recent</button>
+        </div>
+        <div class="col-md-9">
+            <ol id="recentResults"></ol>
+        </div>
+    </div>
+    <div class="row">
+        <h3>Test Top 10 Endpoint</h3>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <button id="getTopTenButton">Get Top 10</button>
+        </div>
+        <div class="col-md-9">
+            <ol id="topTenResults"></ol>
+        </div>
+    </div>
+</div>
+
+
+
+
