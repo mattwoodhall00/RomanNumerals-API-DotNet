@@ -15,7 +15,7 @@ Our client (Numeral McNumberFace) requires a simple API which will convert an in
  - Good project architecture.
  
  ## Submission Instructions
-Please create a [git bundle](https://git-scm.com/docs/git-bundle/) and send the file across:
+Please make sure to commit your work locally, then create a [git bundle](https://git-scm.com/docs/git-bundle/) and send the file across:
 ```
-git bundle create <yourname>.bundle --all --branches
+git bundle create <yourname>.bundle --all
 ```
