@@ -1,8 +1,13 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using RomanNumerals_API_DotNet.Controllers.API;
+using RomanNumerals_API_DotNet.Data;
 using RomanNumerals_API_DotNet.Services;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Extensions.Configuration;
 
 namespace RomanNumerals_API_DotNet.Tests
 {
@@ -10,11 +15,22 @@ namespace RomanNumerals_API_DotNet.Tests
     public class IntegerConversionTests
     {
         private IntegerConversionService _service;
+        private ConvertToNumeralController _convertController;
+        private RecentConversionsController _recentConversionsController;
+       
 
         [TestInitialize]
         public void TestInitialize()
         {
-            _service = new IntegerConversionService();
+            
+            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
+            optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=RomanNumeralTest;Trusted_Connection=True;");
+            var dbContext = new ApplicationDbContext(optionsBuilder.Options);
+
+
+            _service = new IntegerConversionService(dbContext);
+            _convertController = new ConvertToNumeralController(_service);
+            _recentConversionsController = new RecentConversionsController(_service);
         }
 
         [TestMethod]
@@ -56,5 +72,36 @@ namespace RomanNumerals_API_DotNet.Tests
             actual = _service.ToRomanNumerals(2018);
             Assert.AreEqual(actual, "MMXVIII");
         }
+
+        [TestMethod]
+        public void DoesNotExceed3999_BadRequest()
+        {
+            int number = 4000;
+
+            var response = _convertController.Get(number) as BadRequestObjectResult;
+
+            Assert.IsInstanceOfType(response, typeof(BadRequestObjectResult));
+        }
+
+        [TestMethod]
+        public void NumberNotBelowOne_BadRequest()
+        {
+            int number = 0;
+
+            var response = _convertController.Get(number) as BadRequestObjectResult;
+
+            Assert.IsInstanceOfType(response, typeof(BadRequestObjectResult));
+        }
+
+        [TestMethod]
+        public void NumberNotNegative_BadRequest()
+        {
+            int number = -1;
+
+            var response = _convertController.Get(number) as BadRequestObjectResult;
+
+            Assert.IsInstanceOfType(response, typeof(BadRequestObjectResult));
+        }
+
     }
 }

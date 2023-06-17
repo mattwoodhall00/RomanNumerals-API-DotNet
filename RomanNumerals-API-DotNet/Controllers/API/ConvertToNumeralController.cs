@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RomanNumerals_API_DotNet.Services;
 
 namespace RomanNumerals_API_DotNet.Controllers.API
 {
@@ -11,9 +12,27 @@ namespace RomanNumerals_API_DotNet.Controllers.API
     [ApiController]
     public class ConvertToNumeralController : ControllerBase
     {
-        public string Get(int number)
+        private readonly IIntegerConversionService _conversionService;
+
+        public ConvertToNumeralController(IIntegerConversionService conversionService)
         {
-            throw new NotImplementedException();
+            _conversionService = conversionService;
+        }
+
+        [HttpGet]
+        public IActionResult Get(int number)
+        {
+            try
+            {
+                string romanNumeral = _conversionService.ToRomanNumerals(number);
+                return Ok(romanNumeral);
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
         }
     }
+    
 }

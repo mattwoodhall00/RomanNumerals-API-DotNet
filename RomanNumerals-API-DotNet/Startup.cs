@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using RomanNumerals_API_DotNet.Data;
+using RomanNumerals_API_DotNet.Services;
 
 namespace RomanNumerals_API_DotNet
 {
@@ -27,6 +30,12 @@ namespace RomanNumerals_API_DotNet
             });
 
             services.AddControllersWithViews();
+            services.AddScoped<IIntegerConversionService, IntegerConversionService>();
+
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(connectionString));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,6 +63,7 @@ namespace RomanNumerals_API_DotNet
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+            
         }
     }
 }
