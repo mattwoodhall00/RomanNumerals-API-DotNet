@@ -19,16 +19,17 @@ namespace RomanNumerals_API_DotNet.Services
         public string ToRomanNumerals(int input)
         {
             int originalInput = input; // Store the original input value
-            // store roman numeral values
-            StringBuilder romanNumeral = new StringBuilder();
-            int[] decimalValues = { 1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1 };
-            string[] romanSymbols = { "M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I" };
 
             //check input validation
             if (input < 1 || input > 3999)
             {
                 throw new ArgumentOutOfRangeException(nameof(input), "Number must be between 1 and 3999.");
             }
+
+            // store roman numeral values
+            StringBuilder romanNumeral = new StringBuilder();
+            int[] decimalValues = { 1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1 };
+            string[] romanSymbols = { "M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I" };
 
             // Perform conversion
             for (int i = 0; i < decimalValues.Length; i++)
