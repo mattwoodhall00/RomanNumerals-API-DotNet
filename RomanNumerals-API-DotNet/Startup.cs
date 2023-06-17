@@ -32,6 +32,7 @@ namespace RomanNumerals_API_DotNet
             services.AddControllersWithViews();
             services.AddScoped<IIntegerConversionService, IntegerConversionService>();
 
+            //adding db connection
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString));
